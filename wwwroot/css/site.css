@@ -22,3 +22,316 @@ body {
 }
 
 
+/************************************/
+<style >
+/* Base styles */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin-bottom: 60px;
+    overflow-x: hidden;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Home container */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Animated title */
+.animated-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 1.5s ease-out;
+}
+
+.glowing-text {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(37, 140, 251, 0.8), 0 0 30px rgba(37, 140, 251, 0.6);
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(37, 140, 251, 0.8), 0 0 30px rgba(37, 140, 251, 0.6);
+    }
+
+    to {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(37, 140, 251, 1), 0 0 35px rgba(37, 140, 251, 0.8);
+    }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out 0.5s forwards;
+}
+
+/* Menu container */
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Menu items */
+.menu-item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+    .menu-item:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .menu-item:nth-child(2) {
+        animation-delay: 0.4s;
+    }
+
+    .menu-item:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+
+/* Neon border */
+.neon-border {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    border: 2px solid transparent;
+    box-shadow: 0 0 15px rgba(37, 140, 251, 0.5), inset 0 0 15px rgba(37, 140, 251, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+    .neon-border::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 15px;
+        padding: 2px;
+        background: linear-gradient(45deg, #258cfb, #4facfe, #00f2fe, #258cfb);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        z-index: -1;
+        opacity: 0.7;
+    }
+
+.menu-item:hover .neon-border {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(37, 140, 251, 0.7), inset 0 0 20px rgba(37, 140, 251, 0.2);
+}
+
+    .menu-item:hover .neon-border::before {
+        animation: neonGlow 1.5s infinite alternate;
+    }
+
+@keyframes neonGlow {
+    from {
+        opacity: 0.7;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Menu icons */
+.menu-icon {
+    font-size: 3rem;
+    color: #258cfb;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(37, 140, 251, 0.8);
+}
+
+.menu-item h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.menu-item p {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+
+/* Neon buttons */
+.neon-button {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    background-color: rgba(37, 140, 251, 0.2);
+    color: #fff;
+    border: 2px solid #258cfb;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+    .neon-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #258cfb, #4facfe, #00f2fe);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .neon-button:hover::before {
+        opacity: 1;
+    }
+
+    .neon-button:hover {
+        color: #000;
+        box-shadow: 0 0 15px rgba(37, 140, 251, 0.8), 0 0 25px rgba(37, 140, 251, 0.6);
+        transform: translateY(-3px);
+    }
+
+    .neon-button.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+        .neon-button.disabled:hover {
+            color: #fff;
+            background-color: rgba(37, 140, 251, 0.2);
+            box-shadow: none;
+            transform: none;
+        }
+
+/* Pulse animation */
+.pulse-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.pulse-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(37, 140, 251, 0.3);
+    animation: pulse 4s infinite;
+}
+
+    .pulse-circle:nth-child(1) {
+        width: 200px;
+        height: 200px;
+        animation-delay: 0s;
+    }
+
+    .pulse-circle:nth-child(2) {
+        width: 350px;
+        height: 350px;
+        animation-delay: 1s;
+    }
+
+    .pulse-circle:nth-child(3) {
+        width: 500px;
+        height: 500px;
+        animation-delay: 2s;
+    }
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Fade animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+</style >
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" >
+
