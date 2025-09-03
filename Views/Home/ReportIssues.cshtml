@@ -1,11 +1,8 @@
 ﻿@model Programming_7312_Part_1.Models.Issue
-
 @{
     ViewData["Title"] = "Report Issues";
 }
-
 <h1>Report Issues</h1>
-
 @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
 {
     <div class="alert alert-success">@ViewBag.SuccessMessage</div>
@@ -23,6 +20,29 @@ else
         <div class="progress-bar" id="progressBar" role="progressbar"
              style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
             0%
+        </div>
+    </div>
+
+    <!-- Milestones Display -->
+    <div class="milestone-container mb-4">
+        <h4>Progress Milestones</h4>
+        <div class="milestone-list">
+            <div class="milestone-item" data-milestone="location">
+                <div class="milestone-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="milestone-text">Location Added</div>
+            </div>
+            <div class="milestone-item" data-milestone="category">
+                <div class="milestone-icon"><i class="fas fa-tag"></i></div>
+                <div class="milestone-text">Category Selected</div>
+            </div>
+            <div class="milestone-item" data-milestone="description">
+                <div class="milestone-icon"><i class="fas fa-align-left"></i></div>
+                <div class="milestone-text">Description Provided</div>
+            </div>
+            <div class="milestone-item" data-milestone="attachment">
+                <div class="milestone-icon"><i class="fas fa-paperclip"></i></div>
+                <div class="milestone-text">Media Attached</div>
+            </div>
         </div>
     </div>
 
@@ -51,7 +71,6 @@ else
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 }
-
 <a href="@Url.Action("Index")" class="btn btn-secondary">Back to Main Menu</a>
 
 @section Scripts {
@@ -60,19 +79,47 @@ else
         if (form) {
             const inputs = form.querySelectorAll("input, textarea, select");
             const progressBar = document.getElementById("progressBar");
+            const milestoneItems = document.querySelectorAll(".milestone-item");
+
+            // Map input names to milestone keys
+            const milestoneMap = {
+                "Location": "location",
+                "Category": "category",
+                "Description": "description",
+                "attachment": "attachment"
+            };
 
             function updateProgress() {
                 let filled = 0;
+                const milestones = {};
+
                 inputs.forEach(input => {
-                    if ((input.type === "file" && input.files.length > 0) ||
-                        (input.type !== "file" && input.value.trim() !== "")) {
+                    const isFilled = (input.type === "file" && input.files.length > 0) ||
+                                    (input.type !== "file" && input.value.trim() !== "");
+
+                    if (isFilled) {
                         filled++;
+                        // Mark milestone as completed
+                        if (milestoneMap[input.name]) {
+                            milestones[milestoneMap[input.name]] = true;
+                        }
                     }
                 });
+
                 const percent = Math.round((filled / inputs.length) * 100);
                 progressBar.style.width = percent + "%";
                 progressBar.textContent = percent + "%";
                 progressBar.setAttribute("aria-valuenow", percent);
+
+                // Update milestone display
+                milestoneItems.forEach(item => {
+                    const milestone = item.getAttribute("data-milestone");
+                    if (milestones[milestone]) {
+                        item.classList.add("completed");
+                    } else {
+                        item.classList.remove("completed");
+                    }
+                });
             }
 
             inputs.forEach(input => input.addEventListener("input", updateProgress));
@@ -81,8 +128,36 @@ else
                 progressBar.style.width = "100%";
                 progressBar.textContent = "100%";
                 progressBar.setAttribute("aria-valuenow", "100");
-                alert("Issue reported, we will be on it next 🚀");
+
+                // Mark all milestones as completed
+                milestoneItems.forEach(item => {
+                    item.classList.add("completed");
+                });
+
+                // Show success notification instead of alert
+                const notification = document.createElement("div");
+                notification.className = "success-notification";
+                notification.innerHTML = `
+                    <div class="notification-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="notification-content">
+                        <h4>Issue Reported Successfully!</h4>
+                        <p>We'll be on it next 🚀</p>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+
+                // Auto-remove notification after 5 seconds
+                setTimeout(() => {
+                    notification.classList.add("fade-out");
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 5000);
             });
         }
     </script>
 }
+
+<style>
+  
+</style>
