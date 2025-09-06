@@ -142,11 +142,11 @@
 <body>
     <!-- Video Background -->
     <div class="video-background">
-        <!-- Try multiple sources for better compatibility -->
+    
         <video autoplay muted loop id="background-video" playsinline>
-            <!-- Try with URL encoded path -->
+            
             <source src="@Url.Content("~/BackgroundVideo/mixkit%20-%20stars%20-%20in%20-%20space%20-%20background%20-%201610%20-%20hd%20-%20ready.mp4")" type="video/mp4">
-            <!-- Try with simplified filename (rename your file to this) -->
+           
             <source src="@Url.Content("~/BackgroundVideo/space-background.mp4")" type="video/mp4">
             <!-- Fallback message -->
             Your browser does not support the video tag.
@@ -187,7 +187,7 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Programming_7312_Part_1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+           Municipal Service 2025 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -210,13 +210,13 @@
                 console.log(message);
             }
 
-            // Check if video loaded successfully
+            
             video.addEventListener('error', function(e) {
                 updateDebug('Error loading video: ' + e.target.error.message);
-                // Fallback: set a solid background color
+                
                 document.querySelector('.video-background').style.backgroundColor = '#000';
 
-                // Try to set a fallback background image
+              
                 document.querySelector('.video-background').style.backgroundImage = 'url(https://picsum.photos/seed/space/1920/1080.jpg)';
                 document.querySelector('.video-background').style.backgroundSize = 'cover';
             });
@@ -225,7 +225,7 @@
                 updateDebug('Video loaded successfully');
             });
 
-            // Try to play the video (some browsers require this)
+            // Try to play the video 
             video.play().then(function() {
                 updateDebug('Video playing');
             }).catch(function(error) {

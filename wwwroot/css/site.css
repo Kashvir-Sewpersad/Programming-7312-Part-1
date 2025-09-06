@@ -331,20 +331,69 @@ body {
     }
 }
 
-
-
-/* Milestone Styles */
-.milestone-container {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+<style >
+/* ===== CARD STYLING ===== */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-    .milestone-container h4 {
-        color: #fff;
-        margin-bottom: 15px;
-        font-size: 1.2rem;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ===== FORM STYLING ===== */
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control.is-valid, .form-select.is-valid {
+    background-image: none;
+    border-color: #198754;
+}
+
+.form-control.is-invalid, .form-select.is-invalid {
+    background-image: none;
+    border-color: #dc3545;
+}
+
+/* ===== PROGRESS BAR STYLING ===== */
+.progress {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+    transition: width 0.6s ease;
+}
+
+/* ===== MILESTONE STYLING ===== */
+.milestone-container {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+    .milestone-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(102, 16, 242, 0.05) 100%);
+        z-index: 0;
+    }
+
+    .milestone-container > * {
+        position: relative;
+        z-index: 1;
     }
 
 .milestone-list {
@@ -356,95 +405,150 @@ body {
 .milestone-item {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    background-color: rgba(255, 255, 255, 0.1);
+    padding: 12px 18px;
+    background-color: white;
     border-radius: 30px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
 }
+
+    .milestone-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 0;
+    }
+
+    .milestone-item.completed::before {
+        opacity: 1;
+    }
 
 .milestone-icon {
     margin-right: 10px;
-    color: #258cfb;
+    color: #0d6efd;
     font-size: 1.2rem;
+    z-index: 1;
 }
 
 .milestone-text {
-    color: #ccc;
+    color: #495057;
     font-weight: 500;
+    z-index: 1;
+}
+
+.milestone-check {
+    margin-left: 10px;
+    color: #198754;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
 .milestone-item.completed {
-    background-color: rgba(40, 167, 69, 0.2);
-    border-color: rgba(40, 167, 69, 0.5);
+    border-color: #198754;
+    transform: scale(1.05);
 }
 
     .milestone-item.completed .milestone-icon {
-        color: #28a745;
+        color: #198754;
     }
 
     .milestone-item.completed .milestone-text {
-        color: #fff;
+        color: #212529;
     }
 
-/* Success Notification */
-.success-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(40, 167, 69, 0.9);
-    color: white;
-    padding: 15px 20px;
+/* ===== BUTTON STYLING ===== */
+.btn-primary {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .btn-primary:hover::before {
+        transform: translateX(0);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+    }
+
+/* ===== TOAST NOTIFICATION STYLING ===== */
+.toast {
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-    animation: slideIn 0.5s ease-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
-.notification-icon {
-    font-size: 2rem;
-    margin-right: 15px;
+.toast-header {
+    border-bottom: none;
 }
 
-.notification-content h4 {
-    margin: 0 0 5px 0;
-    font-size: 1.2rem;
-}
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
 
-.notification-content p {
-    margin: 0;
-    opacity: 0.9;
-}
-
-.success-notification.fade-out {
-    animation: fadeOut 0.5s ease-out forwards;
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideIn {
     from {
-        transform: translateX(100%);
+        transform: translateY(20px);
         opacity: 0;
     }
 
     to {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
     }
 }
 
-@keyframes fadeOut {
-    from {
-        opacity: 1;
+.card, .milestone-item, .btn {
+    animation: fadeIn 0.5s ease-out, slideIn 0.5s ease-out;
+}
+
+    .milestone-item:nth-child(1) {
+        animation-delay: 0.1s;
     }
 
-    to {
-        opacity: 0;
+    .milestone-item:nth-child(2) {
+        animation-delay: 0.2s;
     }
-}
+
+    .milestone-item:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .milestone-item:nth-child(4) {
+        animation-delay: 0.4s;
+    }
 
 </style >
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" >
-

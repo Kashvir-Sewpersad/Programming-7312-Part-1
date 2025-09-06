@@ -2,162 +2,285 @@
 @{
     ViewData["Title"] = "Report Issues";
 }
-<h1>Report Issues</h1>
-@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-{
-    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
-    <div class="progress" style="height: 20px;">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-            100%
-        </div>
-    </div>
-    <p>@ViewBag.EngagementMessage</p>
-}
-else
-{
-    <!-- Progress bar -->
-    <div class="progress mb-3" style="height: 20px;">
-        <div class="progress-bar" id="progressBar" role="progressbar"
-             style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            0%
-        </div>
-    </div>
 
-    <!-- Milestones Display -->
-    <div class="milestone-container mb-4">
-        <h4>Progress Milestones</h4>
-        <div class="milestone-list">
-            <div class="milestone-item" data-milestone="location">
-                <div class="milestone-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="milestone-text">Location Added</div>
-            </div>
-            <div class="milestone-item" data-milestone="category">
-                <div class="milestone-icon"><i class="fas fa-tag"></i></div>
-                <div class="milestone-text">Category Selected</div>
-            </div>
-            <div class="milestone-item" data-milestone="description">
-                <div class="milestone-icon"><i class="fas fa-align-left"></i></div>
-                <div class="milestone-text">Description Provided</div>
-            </div>
-            <div class="milestone-item" data-milestone="attachment">
-                <div class="milestone-icon"><i class="fas fa-paperclip"></i></div>
-                <div class="milestone-text">Media Attached</div>
+<!-- HTML Structure -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <!-- Card Header -->
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h1 class="mb-0 display-5 fw-bold">Report Issues</h1>
+                    <p class="mb-0 opacity-75">Help us improve by reporting problems you encounter</p>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4 p-md-5">
+                    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <div>
+                                <strong>@ViewBag.SuccessMessage</strong>
+                                <div class="progress mt-2" style="height: 10px;">
+                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-2 mb-0">@ViewBag.EngagementMessage</p>
+                            </div>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Progress Section -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-medium">Form Completion</span>
+                                <span class="fw-medium" id="progressText">0%</span>
+                            </div>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <!-- Milestones Section -->
+                        <div class="milestone-container mb-4">
+                            <h4 class="mb-3">Progress Milestones</h4>
+                            <div class="milestone-list">
+                                <div class="milestone-item" data-milestone="location">
+                                    <div class="milestone-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div class="milestone-text">Location Added</div>
+                                    <div class="milestone-check"><i class="fas fa-check"></i></div>
+                                </div>
+                                <div class="milestone-item" data-milestone="category">
+                                    <div class="milestone-icon"><i class="fas fa-tag"></i></div>
+                                    <div class="milestone-text">Category Selected</div>
+                                    <div class="milestone-check"><i class="fas fa-check"></i></div>
+                                </div>
+                                <div class="milestone-item" data-milestone="description">
+                                    <div class="milestone-icon"><i class="fas fa-align-left"></i></div>
+                                    <div class="milestone-text">Description Provided</div>
+                                    <div class="milestone-check"><i class="fas fa-check"></i></div>
+                                </div>
+                                <div class="milestone-item" data-milestone="attachment">
+                                    <div class="milestone-icon"><i class="fas fa-paperclip"></i></div>
+                                    <div class="milestone-text">Media Attached</div>
+                                    <div class="milestone-check"><i class="fas fa-check"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Section -->
+                        <form asp-action="ReportIssues" method="post" enctype="multipart/form-data" id="issueForm">
+                            <div class="form-floating mb-3">
+                                <input asp-for="Location" class="form-control" id="Location" placeholder="Location" required />
+                                <label for="Location">Location</label>
+                                <div class="invalid-feedback">
+                                    Please provide a valid location.
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <select asp-for="Category" class="form-select" id="Category" required>
+                                    <option value="" selected disabled>Select a category</option>
+                                    @foreach (var cat in ViewBag.Categories)
+                                    {
+                                        <option value="@cat">@cat</option>
+                                    }
+                                </select>
+                                <label for="Category">Category</label>
+                                <div class="invalid-feedback">
+                                    Please select a category.
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <textarea asp-for="Description" class="form-control" id="Description" placeholder="Description" style="height: 120px" required></textarea>
+                                <label for="Description">Description</label>
+                                <div class="invalid-feedback">
+                                    Please provide a description.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="attachment" class="form-label">Attach Media</label>
+                                <div class="input-group">
+                                    <input type="file" name="attachment" class="form-control" id="attachment" />
+                                    <label class="input-group-text" for="attachment">
+                                        <i class="fas fa-upload"></i>
+                                    </label>
+                                </div>
+                                <div class="form-text">Optional: Attach images or files to help explain the issue</div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                    <span id="submitText">Submit Report</span>
+                                    <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </form>
+                    }
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer bg-light text-center py-3">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Main Menu
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <form asp-action="ReportIssues" method="post" enctype="multipart/form-data" id="issueForm">
-        <div class="form-group">
-            <label for="Location">Location</label>
-            <input asp-for="Location" class="form-control" required />
+<!-- Success Toast Notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <i class="fas fa-check-circle me-2"></i>
+            <strong class="me-auto">Success!</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="form-group">
-            <label for="Category">Category</label>
-            <select asp-for="Category" class="form-control" required>
-                @foreach (var cat in ViewBag.Categories)
-                {
-                    <option value="@cat">@cat</option>
-                }
-            </select>
+        <div class="toast-body">
+            Issue reported successfully! We'll be on it next 🚀
         </div>
-        <div class="form-group">
-            <label for="Description">Description</label>
-            <textarea asp-for="Description" class="form-control" rows="5" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="attachment">Attach Media</label>
-            <input type="file" name="attachment" class="form-control-file" />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-}
-<a href="@Url.Action("Index")" class="btn btn-secondary">Back to Main Menu</a>
+    </div>
+</div>
 
 @section Scripts {
     <script>
-        const form = document.getElementById("issueForm");
-        if (form) {
-            const inputs = form.querySelectorAll("input, textarea, select");
-            const progressBar = document.getElementById("progressBar");
-            const milestoneItems = document.querySelectorAll(".milestone-item");
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById("issueForm");
+            if (form) {
+                const inputs = form.querySelectorAll("input, textarea, select");
+                const progressBar = document.getElementById("progressBar");
+                const progressText = document.getElementById("progressText");
+                const milestoneItems = document.querySelectorAll(".milestone-item");
+                const submitBtn = document.getElementById("submitBtn");
+                const submitText = document.getElementById("submitText");
+                const submitSpinner = document.getElementById("submitSpinner");
+                const successToast = new bootstrap.Toast(document.getElementById('successToast'));
 
-            // Map input names to milestone keys
-            const milestoneMap = {
-                "Location": "location",
-                "Category": "category",
-                "Description": "description",
-                "attachment": "attachment"
-            };
+                // Map input names to milestone keys
+                const milestoneMap = {
+                    "Location": "location",
+                    "Category": "category",
+                    "Description": "description",
+                    "attachment": "attachment"
+                };
 
-            function updateProgress() {
-                let filled = 0;
-                const milestones = {};
+                function updateProgress() {
+                    let filled = 0;
+                    const milestones = {};
 
-                inputs.forEach(input => {
-                    const isFilled = (input.type === "file" && input.files.length > 0) ||
-                                    (input.type !== "file" && input.value.trim() !== "");
+                    inputs.forEach(input => {
+                        const isFilled = (input.type === "file" && input.files.length > 0) ||
+                                        (input.type !== "file" && input.value.trim() !== "");
 
-                    if (isFilled) {
-                        filled++;
-                        // Mark milestone as completed
-                        if (milestoneMap[input.name]) {
-                            milestones[milestoneMap[input.name]] = true;
+                        if (isFilled) {
+                            filled++;
+                            // Mark milestone as completed
+                            if (milestoneMap[input.name]) {
+                                milestones[milestoneMap[input.name]] = true;
+                            }
+
+                            // Add visual feedback for filled fields
+                            if (input.classList.contains('form-control') || input.classList.contains('form-select')) {
+                                input.classList.add('is-valid');
+                                input.classList.remove('is-invalid');
+                            }
+                        } else {
+                            // Remove visual feedback for empty fields
+                            if (input.classList.contains('form-control') || input.classList.contains('form-select')) {
+                                input.classList.remove('is-valid');
+                                if (input.hasAttribute('required')) {
+                                    input.classList.add('is-invalid');
+                                }
+                            }
                         }
-                    }
+                    });
+
+                    const percent = Math.round((filled / inputs.length) * 100);
+                    progressBar.style.width = percent + "%";
+                    progressText.textContent = percent + "%";
+                    progressBar.setAttribute("aria-valuenow", percent);
+
+                    // Update milestone display
+                    milestoneItems.forEach(item => {
+                        const milestone = item.getAttribute("data-milestone");
+                        const checkIcon = item.querySelector('.milestone-check');
+
+                        if (milestones[milestone]) {
+                            item.classList.add("completed");
+                            checkIcon.style.opacity = "1";
+                        } else {
+                            item.classList.remove("completed");
+                            checkIcon.style.opacity = "0";
+                        }
+                    });
+
+                    // Enable/disable submit button based on required fields
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let allRequiredFilled = true;
+
+                    requiredFields.forEach(field => {
+                        if (field.type === "file") {
+                            if (field.files.length === 0) allRequiredFilled = false;
+                        } else {
+                            if (field.value.trim() === "") allRequiredFilled = false;
+                        }
+                    });
+
+                    submitBtn.disabled = !allRequiredFilled;
+                }
+
+                // Initial progress update
+                updateProgress();
+
+                // Add event listeners
+                inputs.forEach(input => {
+                    input.addEventListener("input", updateProgress);
+                    input.addEventListener("change", updateProgress);
                 });
 
-                const percent = Math.round((filled / inputs.length) * 100);
-                progressBar.style.width = percent + "%";
-                progressBar.textContent = percent + "%";
-                progressBar.setAttribute("aria-valuenow", percent);
+                // Form submission
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
 
-                // Update milestone display
-                milestoneItems.forEach(item => {
-                    const milestone = item.getAttribute("data-milestone");
-                    if (milestones[milestone]) {
-                        item.classList.add("completed");
-                    } else {
-                        item.classList.remove("completed");
-                    }
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitText.textContent = "Submitting...";
+                    submitSpinner.classList.remove('d-none');
+
+                    // Simulate network delay
+                    setTimeout(() => {
+                        // Update progress bar to 100%
+                        progressBar.style.width = "100%";
+                        progressText.textContent = "100%";
+                        progressBar.setAttribute("aria-valuenow", "100");
+
+                        // Mark all milestones as completed
+                        milestoneItems.forEach(item => {
+                            item.classList.add("completed");
+                            item.querySelector('.milestone-check').style.opacity = "1";
+                        });
+
+                        // Show success toast
+                        successToast.show();
+
+                        // Reset form after delay
+                        setTimeout(() => {
+                            form.reset();
+                            updateProgress();
+                            submitBtn.disabled = false;
+                            submitText.textContent = "Submit Report";
+                            submitSpinner.classList.add('d-none');
+                        }, 3000);
+                    }, 1500);
                 });
             }
-
-            inputs.forEach(input => input.addEventListener("input", updateProgress));
-
-            form.addEventListener("submit", function () {
-                progressBar.style.width = "100%";
-                progressBar.textContent = "100%";
-                progressBar.setAttribute("aria-valuenow", "100");
-
-                // Mark all milestones as completed
-                milestoneItems.forEach(item => {
-                    item.classList.add("completed");
-                });
-
-                // Show success notification instead of alert
-                const notification = document.createElement("div");
-                notification.className = "success-notification";
-                notification.innerHTML = `
-                    <div class="notification-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="notification-content">
-                        <h4>Issue Reported Successfully!</h4>
-                        <p>We'll be on it next 🚀</p>
-                    </div>
-                `;
-                document.body.appendChild(notification);
-
-                // Auto-remove notification after 5 seconds
-                setTimeout(() => {
-                    notification.classList.add("fade-out");
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 500);
-                }, 5000);
-            });
-        }
+        });
     </script>
 }
 
-<style>
-  
-</style>
