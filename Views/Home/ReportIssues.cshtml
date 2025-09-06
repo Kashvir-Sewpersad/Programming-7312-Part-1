@@ -1,52 +1,64 @@
-﻿@model Programming_7312_Part_1.Models.Issue
-@{
-    ViewData["Title"] = "Report Issues";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issues - Municipal Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Link to your external CSS file -->
+    <link href="futuristic-styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-<!-- HTML Structure -->
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-                <!-- Card Header -->
-                <div class="card-header bg-primary text-white text-center py-4">
-                    <h1 class="mb-0 display-5 fw-bold">Report Issues</h1>
-                    <p class="mb-0 opacity-75">Help us improve by reporting problems you encounter</p>
-                </div>
+    <div class="report-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Page Title -->
+                    <div class="page-title">
+                        <h1 class="glowing-text">Report Issues</h1>
+                        <p class="subtitle">Help us improve by reporting problems you encounter</p>
+                    </div>
 
-                <!-- Card Body -->
-                <div class="card-body p-4 p-md-5">
-                    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-                    {
-                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
-                            <i class="fas fa-check-circle me-2"></i>
-                            <div>
-                                <strong>@ViewBag.SuccessMessage</strong>
-                                <div class="progress mt-2" style="height: 10px;">
-                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="neon-card">
+                        <!-- Success Message (hidden by default) -->
+                        <div class="neon-alert d-none" id="successAlert">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle me-3" style="font-size: 1.5rem; color: #28a745;"></i>
+                                <div>
+                                    <h5 class="mb-1" style="color: #28a745;">Success!</h5>
+                                    <p class="mb-0" style="color: #e0e0e0;">Issue reported successfully! We'll be on it next 🚀</p>
                                 </div>
-                                <p class="mt-2 mb-0">@ViewBag.EngagementMessage</p>
                             </div>
-                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    }
-                    else
-                    {
+
                         <!-- Progress Section -->
-                        <div class="mb-4">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="fw-medium">Form Completion</span>
-                                <span class="fw-medium" id="progressText">0%</span>
+                        <div class="progress-section">
+                            <div class="progress-header d-flex justify-content-between">
+                                <span class="progress-title">Form Completion</span>
+                                <span class="progress-percentage" id="progressText">0%</span>
                             </div>
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="neon-progress">
+                                <div class="neon-progress-bar" id="progressBar" style="width: 0%;"></div>
                             </div>
                         </div>
 
                         <!-- Milestones Section -->
-                        <div class="milestone-container mb-4">
-                            <h4 class="mb-3">Progress Milestones</h4>
-                            <div class="milestone-list">
+                        <div class="milestone-section">
+                            <h4 class="milestone-title">Progress Milestones</h4>
+                            <div class="milestone-grid">
                                 <div class="milestone-item" data-milestone="location">
                                     <div class="milestone-icon"><i class="fas fa-map-marker-alt"></i></div>
                                     <div class="milestone-text">Location Added</div>
@@ -71,216 +83,205 @@
                         </div>
 
                         <!-- Form Section -->
-                        <form asp-action="ReportIssues" method="post" enctype="multipart/form-data" id="issueForm">
-                            <div class="form-floating mb-3">
-                                <input asp-for="Location" class="form-control" id="Location" placeholder="Location" required />
-                                <label for="Location">Location</label>
-                                <div class="invalid-feedback">
-                                    Please provide a valid location.
+                        <div class="form-section">
+                            <form id="issueForm">
+                                <div class="neon-form-group">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="neon-input form-control" id="location" name="location" placeholder="Enter the location..." required>
+                                    <div class="invalid-feedback">Please provide a valid location.</div>
                                 </div>
-                            </div>
 
-                            <div class="form-floating mb-3">
-                                <select asp-for="Category" class="form-select" id="Category" required>
-                                    <option value="" selected disabled>Select a category</option>
-                                    @foreach (var cat in ViewBag.Categories)
-                                    {
-                                        <option value="@cat">@cat</option>
-                                    }
-                                </select>
-                                <label for="Category">Category</label>
-                                <div class="invalid-feedback">
-                                    Please select a category.
+                                <div class="neon-form-group">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="neon-select form-control" id="category" name="category" required>
+                                        <option value="" disabled selected>Select a category</option>
+                                        <option value="Roads">Roads & Infrastructure</option>
+                                        <option value="Water">Water & Sanitation</option>
+                                        <option value="Electricity">Electricity</option>
+                                        <option value="Waste">Waste Management</option>
+                                        <option value="Public Safety">Public Safety</option>
+                                        <option value="Parks">Parks & Recreation</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a category.</div>
                                 </div>
-                            </div>
 
-                            <div class="form-floating mb-3">
-                                <textarea asp-for="Description" class="form-control" id="Description" placeholder="Description" style="height: 120px" required></textarea>
-                                <label for="Description">Description</label>
-                                <div class="invalid-feedback">
-                                    Please provide a description.
+                                <div class="neon-form-group">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="neon-textarea form-control" id="description" name="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+                                    <div class="invalid-feedback">Please provide a description.</div>
                                 </div>
-                            </div>
 
-                            <div class="mb-4">
-                                <label for="attachment" class="form-label">Attach Media</label>
-                                <div class="input-group">
-                                    <input type="file" name="attachment" class="form-control" id="attachment" />
-                                    <label class="input-group-text" for="attachment">
-                                        <i class="fas fa-upload"></i>
-                                    </label>
+                                <div class="neon-form-group">
+                                    <label class="form-label">Attach Media (Optional)</label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" class="file-upload-input" id="attachment" name="attachment">
+                                        <div class="file-upload-content">
+                                            <div class="file-upload-icon">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </div>
+                                            <p class="mb-1" style="color: #e0e0e0; font-weight: 500;">Click to upload or drag and drop</p>
+                                            <p class="mb-0" style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">Images or files to help explain the issue</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-text">Optional: Attach images or files to help explain the issue</div>
-                            </div>
 
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-                                    <span id="submitText">Submit Report</span>
-                                    <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </form>
-                    }
-                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="neon-button" id="submitBtn" disabled>
+                                        <span id="submitText">Submit Report</span>
+                                        <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2 d-none"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
-                <!-- Card Footer -->
-                <div class="card-footer bg-light text-center py-3">
-                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i> Back to Main Menu
-                    </a>
+                        <!-- Footer -->
+                        <div class="text-center mt-4">
+                            <a href="#" class="back-btn">
+                                <i class="fas fa-arrow-left"></i> Back to Main Menu
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Success Toast Notification -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-success text-white">
-            <i class="fas fa-check-circle me-2"></i>
-            <strong class="me-auto">Success!</strong>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            Issue reported successfully! We'll be on it next 🚀
-        </div>
-    </div>
-</div>
-
-@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById("issueForm");
-            if (form) {
-                const inputs = form.querySelectorAll("input, textarea, select");
-                const progressBar = document.getElementById("progressBar");
-                const progressText = document.getElementById("progressText");
-                const milestoneItems = document.querySelectorAll(".milestone-item");
-                const submitBtn = document.getElementById("submitBtn");
-                const submitText = document.getElementById("submitText");
-                const submitSpinner = document.getElementById("submitSpinner");
-                const successToast = new bootstrap.Toast(document.getElementById('successToast'));
+            const form = document.getElementById('issueForm');
+            const inputs = form.querySelectorAll('input, textarea, select');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const milestoneItems = document.querySelectorAll('.milestone-item');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+            const successAlert = document.getElementById('successAlert');
 
-                // Map input names to milestone keys
-                const milestoneMap = {
-                    "Location": "location",
-                    "Category": "category",
-                    "Description": "description",
-                    "attachment": "attachment"
-                };
+            // Map input names to milestone keys
+            const milestoneMap = {
+                "location": "location",
+                "category": "category",
+                "description": "description",
+                "attachment": "attachment"
+            };
 
-                function updateProgress() {
-                    let filled = 0;
-                    const milestones = {};
+            function updateProgress() {
+                let filled = 0;
+                const milestones = {};
 
-                    inputs.forEach(input => {
-                        const isFilled = (input.type === "file" && input.files.length > 0) ||
-                                        (input.type !== "file" && input.value.trim() !== "");
-
-                        if (isFilled) {
-                            filled++;
-                            // Mark milestone as completed
-                            if (milestoneMap[input.name]) {
-                                milestones[milestoneMap[input.name]] = true;
-                            }
-
-                            // Add visual feedback for filled fields
-                            if (input.classList.contains('form-control') || input.classList.contains('form-select')) {
-                                input.classList.add('is-valid');
-                                input.classList.remove('is-invalid');
-                            }
-                        } else {
-                            // Remove visual feedback for empty fields
-                            if (input.classList.contains('form-control') || input.classList.contains('form-select')) {
-                                input.classList.remove('is-valid');
-                                if (input.hasAttribute('required')) {
-                                    input.classList.add('is-invalid');
-                                }
-                            }
-                        }
-                    });
-
-                    const percent = Math.round((filled / inputs.length) * 100);
-                    progressBar.style.width = percent + "%";
-                    progressText.textContent = percent + "%";
-                    progressBar.setAttribute("aria-valuenow", percent);
-
-                    // Update milestone display
-                    milestoneItems.forEach(item => {
-                        const milestone = item.getAttribute("data-milestone");
-                        const checkIcon = item.querySelector('.milestone-check');
-
-                        if (milestones[milestone]) {
-                            item.classList.add("completed");
-                            checkIcon.style.opacity = "1";
-                        } else {
-                            item.classList.remove("completed");
-                            checkIcon.style.opacity = "0";
-                        }
-                    });
-
-                    // Enable/disable submit button based on required fields
-                    const requiredFields = form.querySelectorAll('[required]');
-                    let allRequiredFilled = true;
-
-                    requiredFields.forEach(field => {
-                        if (field.type === "file") {
-                            if (field.files.length === 0) allRequiredFilled = false;
-                        } else {
-                            if (field.value.trim() === "") allRequiredFilled = false;
-                        }
-                    });
-
-                    submitBtn.disabled = !allRequiredFilled;
-                }
-
-                // Initial progress update
-                updateProgress();
-
-                // Add event listeners
                 inputs.forEach(input => {
-                    input.addEventListener("input", updateProgress);
-                    input.addEventListener("change", updateProgress);
+                    const isFilled = (input.type === "file" && input.files.length > 0) ||
+                                    (input.type !== "file" && input.value.trim() !== "");
+
+                    if (isFilled) {
+                        filled++;
+                        // Mark milestone as completed
+                        if (milestoneMap[input.name]) {
+                            milestones[milestoneMap[input.name]] = true;
+                        }
+
+                        // Add visual feedback for filled fields
+                        input.classList.add('is-valid');
+                        input.classList.remove('is-invalid');
+                    } else {
+                        // Remove visual feedback for empty fields
+                        input.classList.remove('is-valid');
+                        if (input.hasAttribute('required')) {
+                            input.classList.add('is-invalid');
+                        }
+                    }
                 });
 
-                // Form submission
-                form.addEventListener("submit", function(e) {
-                    e.preventDefault();
+                const percent = Math.round((filled / inputs.length) * 100);
+                progressBar.style.width = percent + "%";
+                progressText.textContent = percent + "%";
 
-                    // Show loading state
-                    submitBtn.disabled = true;
-                    submitText.textContent = "Submitting...";
-                    submitSpinner.classList.remove('d-none');
+                // Update milestone display
+                milestoneItems.forEach(item => {
+                    const milestone = item.getAttribute("data-milestone");
 
-                    // Simulate network delay
-                    setTimeout(() => {
-                        // Update progress bar to 100%
-                        progressBar.style.width = "100%";
-                        progressText.textContent = "100%";
-                        progressBar.setAttribute("aria-valuenow", "100");
-
-                        // Mark all milestones as completed
-                        milestoneItems.forEach(item => {
-                            item.classList.add("completed");
-                            item.querySelector('.milestone-check').style.opacity = "1";
-                        });
-
-                        // Show success toast
-                        successToast.show();
-
-                        // Reset form after delay
-                        setTimeout(() => {
-                            form.reset();
-                            updateProgress();
-                            submitBtn.disabled = false;
-                            submitText.textContent = "Submit Report";
-                            submitSpinner.classList.add('d-none');
-                        }, 3000);
-                    }, 1500);
+                    if (milestones[milestone]) {
+                        item.classList.add("completed");
+                    } else {
+                        item.classList.remove("completed");
+                    }
                 });
+
+                // Enable/disable submit button based on required fields
+                const requiredFields = form.querySelectorAll('[required]');
+                let allRequiredFilled = true;
+
+                requiredFields.forEach(field => {
+                    if (field.value.trim() === "") allRequiredFilled = false;
+                });
+
+                submitBtn.disabled = !allRequiredFilled;
             }
+
+            // Initial progress update
+            updateProgress();
+
+            // Add event listeners
+            inputs.forEach(input => {
+                input.addEventListener("input", updateProgress);
+                input.addEventListener("change", updateProgress);
+            });
+
+            // Form submission
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                // Show loading state
+                submitBtn.disabled = true;
+                submitText.textContent = "Submitting...";
+                submitSpinner.classList.remove('d-none');
+
+                // Simulate network delay
+                setTimeout(() => {
+                    // Update progress bar to 100%
+                    progressBar.style.width = "100%";
+                    progressText.textContent = "100%";
+
+                    // Mark all milestones as completed
+                    milestoneItems.forEach(item => {
+                        item.classList.add("completed");
+                    });
+
+                    // Show success alert
+                    successAlert.classList.remove('d-none');
+
+                    // Scroll to success message
+                    successAlert.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Reset form after delay
+                    setTimeout(() => {
+                        form.reset();
+                        successAlert.classList.add('d-none');
+                        updateProgress();
+                        submitBtn.disabled = false;
+                        submitText.textContent = "Submit Report";
+                        submitSpinner.classList.add('d-none');
+                    }, 3000);
+                }, 1500);
+            });
+
+            // File upload feedback
+            const fileInput = document.getElementById('attachment');
+            const fileWrapper = document.querySelector('.file-upload-wrapper');
+
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    fileWrapper.style.borderColor = '#28a745';
+                    fileWrapper.style.background = 'rgba(40, 167, 69, 0.1)';
+                } else {
+                    fileWrapper.style.borderColor = 'rgba(37, 140, 251, 0.3)';
+                    fileWrapper.style.background = 'rgba(255, 255, 255, 0.02)';
+                }
+            });
         });
     </script>
-}
-
+</body>
+</html>
