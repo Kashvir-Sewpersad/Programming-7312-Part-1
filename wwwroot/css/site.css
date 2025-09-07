@@ -23,7 +23,7 @@ body {
 
 
 
-/* Location dropdown styles */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ the below code is for the location section on the report issues form  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 .location-wrapper {
     position: relative;
 }
@@ -95,7 +95,7 @@ body {
     }
 
 
-/************************************/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ end of location box @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 /* Base styles */
 html {
@@ -503,7 +503,7 @@ body {
     }
 }
 
-/* Main container */
+/* *********************************** Main container ********************************************** */
 .report-container {
     padding: 2rem 0;
     min-height: 100vh;
@@ -514,7 +514,7 @@ body {
     z-index: 1;
 }
 
-/* Glowing title */
+/* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Glowing title $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
 .page-title {
     text-align: center;
     margin-bottom: 2rem;
@@ -548,7 +548,7 @@ body {
     animation: fadeIn 1.5s ease-out 0.5s forwards;
 }
 
-/* Neon card */
+/* ############################################# Neon card ################################################### */
 .neon-card {
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 20px;
@@ -588,7 +588,7 @@ body {
     }
 }
 
-/* Progress section */
+/*--------------------------------------- Progress section -------------------------------------------*/
 .progress-section {
     margin-bottom: 2rem;
     animation: slideInLeft 1s ease-out 0.6s both;
@@ -652,7 +652,7 @@ body {
     }
 }
 
-/* Milestone section */
+/* **************************************** Milestone section ********************************************* */
 .milestone-section {
     background: rgba(37, 140, 251, 0.05);
     border-radius: 15px;
@@ -739,7 +739,7 @@ body {
     transform: scale(1);
 }
 
-/* Form styling */
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 Form styling  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 .form-section {
     animation: slideInUp 1s ease-out 1.2s both;
 }
@@ -797,7 +797,7 @@ body {
     color: #ff6b7a;
 }
 
-/* File upload styling */
+/* /////////////////////////////////////// File upload styling/////////////////////////////////////////// */
 .file-upload-wrapper {
     position: relative;
     overflow: hidden;
@@ -879,7 +879,7 @@ body {
             transform: none;
         }
 
-/* Back button */
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Back button  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 .back-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -900,7 +900,7 @@ body {
         text-decoration: none;
     }
 
-/* Success alert */
+/* ?????????????????????????????????????? Success alert ????????????????????????????????????????? */
 .neon-alert {
     background: rgba(40, 167, 69, 0.2);
     border: 2px solid rgba(40, 167, 69, 0.5);
