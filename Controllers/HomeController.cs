@@ -1,3 +1,5 @@
+
+//---------------------------------------------- start of home controller ------------------------------------------//
 using Microsoft.AspNetCore.Mvc;
 using Programming_7312_Part_1.Models;
 using Programming_7312_Part_1.Services;
@@ -13,25 +15,26 @@ namespace Programming_7312_Part_1.Controllers
         {
             _issueStorage = issueStorage ?? throw new ArgumentNullException(nameof(issueStorage));
         }
-
+         // home  
         public IActionResult Index()
         {
             return View();
         }
+        // privacy 
         public IActionResult Privacy()
         {
             return View();
         }
         public IActionResult ReportIssues()
         {
-            ViewBag.Categories = new[] { "Sanitation", "Roads", "Utilities", "Other" };
+            ViewBag.Categories = new[] { "Sanitation", "Roads", "Utilities", "Other" }; // catergories 
             return View(new Issue());
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReportIssues(Issue model, IFormFile attachment)
+        public async Task<IActionResult> ReportIssues(Issue model, IFormFile attachment) // 
         {
-            ViewBag.Categories = new[] { "Sanitation", "Roads", "Utilities", "Other" };
+            ViewBag.Categories = new[] { "Sanitation", "Roads", "Utilities", "Other" }; 
 
             if (!ModelState.IsValid)
             {
@@ -41,7 +44,7 @@ namespace Programming_7312_Part_1.Controllers
             // Handle file upload
             if (attachment != null && attachment.Length > 0)
             {
-                var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads"); // stored in upload folder
 
                 // Create directory if it doesn't exist
                 if (!Directory.Exists(uploadsDir))
@@ -62,7 +65,7 @@ namespace Programming_7312_Part_1.Controllers
                 model.AttachedFilePath = "/uploads/" + fileName;
             }
 
-            // Store issue
+            // Store issues 
             _issueStorage.ReportedIssues.AddLast(model);
 
             ViewBag.SuccessMessage = "Issue reported successfully!";
@@ -78,3 +81,4 @@ namespace Programming_7312_Part_1.Controllers
         }
     }
 }
+//-------------------------------------------- end of home controller --------------------------------------//
