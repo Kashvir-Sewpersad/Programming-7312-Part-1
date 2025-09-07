@@ -29,7 +29,7 @@ namespace Programming_7312_Part_1.Controllers
         }
 
         [HttpPost]
-        public IActionResult ReportIssues(Issue model, IFormFile attachment)
+        public async Task<IActionResult> ReportIssues(Issue model, IFormFile attachment)
         {
             ViewBag.Categories = new[] { "Sanitation", "Roads", "Utilities", "Other" };
 
@@ -42,24 +42,31 @@ namespace Programming_7312_Part_1.Controllers
             if (attachment != null && attachment.Length > 0)
             {
                 var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-                var filePath = Path.Combine(uploadsDir, attachment.FileName);
-                var directory = Path.GetDirectoryName(filePath);
-                if (directory != null && !Directory.Exists(directory))
+
+                // Create directory if it doesn't exist
+                if (!Directory.Exists(uploadsDir))
                 {
-                    Directory.CreateDirectory(directory);
+                    Directory.CreateDirectory(uploadsDir);
                 }
+
+                // Generate unique filename to avoid conflicts
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(attachment.FileName);
+                var filePath = Path.Combine(uploadsDir, fileName);
+
+                // Save file asynchronously
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    attachment.CopyTo(stream);
+                    await attachment.CopyToAsync(stream);
                 }
-                model.AttachedFilePath = "/uploads/" + attachment.FileName;
+
+                model.AttachedFilePath = "/uploads/" + fileName;
             }
 
             // Store issue
             _issueStorage.ReportedIssues.AddLast(model);
 
             ViewBag.SuccessMessage = "Issue reported successfully!";
-            ViewBag.EngagementMessage = "Your reports make our community better!"; // Customize per Task 1
+            ViewBag.EngagementMessage = "Your reports make our community better!";
 
             ModelState.Clear();
             return View(new Issue());

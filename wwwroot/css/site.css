@@ -22,6 +22,79 @@ body {
 }
 
 
+
+/* Location dropdown styles */
+.location-wrapper {
+    position: relative;
+}
+
+.location-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(37, 140, 251, 0.3);
+    border-radius: 12px;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.location-option {
+    padding: 0.75rem 1rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .location-option:hover, .location-option.highlighted {
+        background: rgba(37, 140, 251, 0.2);
+        color: var(--primary-glow);
+    }
+
+    .location-option:last-child {
+        border-bottom: none;
+    }
+
+.dropdown-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+    .dropdown-toggle:hover {
+        color: var(--primary-glow);
+    }
+
+/* Custom scrollbar for dropdown */
+.location-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.location-dropdown::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.location-dropdown::-webkit-scrollbar-thumb {
+    background: var(--primary-glow);
+    border-radius: 3px;
+}
+
+    .location-dropdown::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-glow);
+    }
+
+
 /************************************/
 <style >
 /* Base styles */
@@ -932,4 +1005,6 @@ body {
     .milestone-grid {
         grid-template-columns: 1fr;
     }
+
+
 }
