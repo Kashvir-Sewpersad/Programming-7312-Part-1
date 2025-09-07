@@ -1,4 +1,5 @@
-﻿using System;
+﻿//--------------------------- start of file -----------------------------//
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Programming_7312_Part_1.Models
@@ -6,21 +7,22 @@ namespace Programming_7312_Part_1.Models
     public class Issue
     {
         [Required]
-        public string? Location { get; set; } // Nullable string
+        public string? Location { get; set; } 
 
         [Required]
-        public string? Category { get; set; } // Nullable string
+        public string? Category { get; set; } 
 
         [Required]
-        public string? Description { get; set; } // Nullable string
+        public string? Description { get; set; } 
 
-        public string? AttachedFilePath { get; set; } // Nullable string
+        public string? AttachedFilePath { get; set; } // optional attachment 
 
-        public DateTime ReportedDate { get; set; }
+        public DateTime ReportedDate { get; set; } // to be set to current date and time off submission 
 
         public Issue()
         {
-            ReportedDate = DateTime.Now;
+            ReportedDate = DateTime.Now; // set to current 
         }
     }
 }
+//------------------------------------ end of file --------------------------------//
