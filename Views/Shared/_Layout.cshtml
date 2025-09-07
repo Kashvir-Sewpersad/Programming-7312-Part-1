@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Programming_7312_Part_1.styles.css" asp-append-version="true" />
 
-    <!-- Add custom styles for video background -->
+    <!--  video background -->
     <style>
-        /* Reset some styles that might be conflicting */
+        
         html, body {
             height: 100%;
             margin: 0;
@@ -27,7 +27,7 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
-            background-color: #000; /* Fallback background color */
+            background-color: #000; /* Fallback background color  should a royal stuff up occur */
         }
 
             .video-background video {
@@ -42,7 +42,7 @@
                 object-fit: cover;
             }
 
-        /* Content overlay for better readability */
+        /* Content overlay for readability */
         .content-overlay {
             position: fixed;
             top: 0;
@@ -53,7 +53,7 @@
             z-index: -1;
         }
 
-        /* Adjust content to be more visible on video background */
+        /* Adjust content to be more visible  */
         body {
             background-color: transparent !important;
             color: white;
@@ -148,7 +148,7 @@
             <source src="@Url.Content("~/BackgroundVideo/mixkit%20-%20stars%20-%20in%20-%20space%20-%20background%20-%201610%20-%20hd%20-%20ready.mp4")" type="video/mp4">
            
             <source src="@Url.Content("~/BackgroundVideo/space-background.mp4")" type="video/mp4">
-            <!-- Fallback message -->
+            <!-- Fallback message should -->
             Your browser does not support the video tag.
         </video>
     </div>
